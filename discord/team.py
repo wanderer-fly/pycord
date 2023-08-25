@@ -145,8 +145,19 @@ class TeamMember(BaseUser):
         self.membership_state: TeamMembershipState = try_enum(
             TeamMembershipState, data["membership_state"]
         )
-        self.permissions: list[str] = data["permissions"]
+        self.role: str = data['role']
+        self._permissions: list[str] | None = data.get('permissions')
         super().__init__(state=state, data=data["user"])
+
+    @property
+    @utils.deprecated(
+        'TeamMember.role',
+        since='2.5',
+        removed='2.8',
+        reference='https://github.com/discord/discord-api-docs/pull/6372'
+    )
+    def permissions(self) -> list[str]:
+        return self._permissions or []
 
     def __repr__(self) -> str:
         if self.is_migrated:

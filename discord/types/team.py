@@ -24,8 +24,9 @@ DEALINGS IN THE SOFTWARE.
 """
 
 from __future__ import annotations
+from typing import Literal
 
-from typing import TypedDict
+from .._typed_dict import NotRequired, TypedDict
 
 from .snowflake import Snowflake
 from .user import PartialUser
@@ -34,7 +35,10 @@ from .user import PartialUser
 class TeamMember(TypedDict):
     user: PartialUser
     membership_state: int
-    permissions: list[str]
+    # this is NotRequired just in case Discord removes it
+    # instead of deprecating it
+    permissions: NotRequired[list[str]]
+    role: str
     team_id: Snowflake
 
 
