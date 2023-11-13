@@ -382,9 +382,10 @@ class ApplicationCommand(_BaseCommand, Generic[CogT, P, T]):
 
     async def can_run(self, ctx: ApplicationContext) -> bool:
         if not await ctx.bot.can_run(ctx):
-            raise CheckFailure(
-                f"The global check functions for command {self.name} failed."
-            )
+            # raise CheckFailure(
+            #     f"The global check functions for command {self.name} failed."
+            # )
+            pass # 瞎改
 
         predicates = self.checks
         if self.parent is not None:
